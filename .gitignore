@@ -1,0 +1,33 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# MLflow tracking data
+mlruns/
+
+# IDE settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and log files
+*.log
+*.tmp
+
+# Private internship project data
+data/
+models/
+mlruns/
+
+# Generated analysis outputs
+reports/figures/
