@@ -1,303 +1,298 @@
 # Real Estate Investment Advisor
 
-### Predicting Property Profitability & Future Value
+### Relative Property Affordability and Future-Value Scenarios
 
-A Machine Learning and Data Analytics project that explores Indian residential property data, evaluates relative property affordability, and estimates future property values using configurable appreciation scenarios.
+An end-to-end Python, Machine Learning, and Streamlit project for exploring residential property data, classifying relative affordability, tracking model experiments with MLflow, and calculating assumption-based future property values.
+
+ **Privacy Notice:** The internship-provided dataset, processed datasets, trained model, and MLflow artifacts are not included in this public repository. The public application uses generated illustrative demo data when those private files are unavailable.
 
 ## 1. Project Overview
 
-The Real Estate Investment Advisor is an interactive data science project designed to help users understand residential property markets and explore potential investment opportunities.
+This project demonstrates an end-to-end data science and machine learning workflow:
 
-The project combines data preprocessing, exploratory data analysis (EDA), feature engineering, machine learning, experiment tracking, and an interactive Streamlit application.
+- Inspecting and preprocessing residential property data.
 
-It aims to provide data-driven insights into property characteristics, pricing patterns, relative affordability, and potential future property values.
+- Performing Exploratory Data Analysis (EDA).
 
-## 2. Project Objectives
+- Engineering features for relative-affordability classification.
 
-- Analyze residential property data across multiple Indian cities and states.
+- Training and evaluating a Random Forest classifier.
 
-- Identify patterns and relationships between property prices and characteristics.
+- Tracking experiments using MLflow.
 
-- Perform data cleaning and preprocessing.
+- Exploring future property-price scenarios using configurable appreciation assumptions.
 
-- Develop meaningful features for machine learning.
+- Building an interactive Streamlit application.
 
-- Build a classification model to identify relatively affordable properties.
+**Important:** The classification target represents relative affordability within a city. It is not a measure of verified investment profitability.
 
-- Estimate future property values using configurable appreciation assumptions.
+---
 
-- Develop an interactive dashboard using Streamlit.
+## 2. Application Features
 
-- Track machine learning experiments and model performance using MLflow.
+| Application Page | Description |
+|---|---|
+| Home | Project overview and dataset summary |
+| Property Investment | Relative-affordability assessment |
+| Price Forecast | Compound-growth scenario calculator |
+| Analytics Dashboard | City, property-type, and price-distribution charts |
 
-## 3. Technologies & Tools
+---
 
-| Technology |  Purpose |
+## 3. Application Screenshots
 
-| Python | Programming language |
+The Streamlit application provides four main sections for exploring property data and affordability scenarios.
 
-| Pandas | Data processing |
+### Home Page
 
-| NumPy | Numerical operations |
+![Application Home Page](screenshots/homepage.png)
 
-| Matplotlib | Data visualization |
+### Property Investment Analysis
 
-| Seaborn | Statistical visualization
+Property inputs and relative-affordability assessment using the trained Random Forest model in the private local environment.
 
-| Scikit-learn | Machine Learning
+![Property Investment Inputs](screenshots/property_investment_1.png)
 
-| Random Forest | Classification algorithm |
+![Property Investment Results](screenshots/property_investment_2.png)
 
-| Streamlit |  Interactive web application | 
+### Price Forecast Scenario
 
-| MLflow | Experiment tracking | 
+![Price Forecast](screenshots/price_forecast.png)
 
-| Joblib | Model serialization |
+---
 
-## 4. Dataset Description
+## 4. Analytics Dashboard
 
-The project uses an Indian housing dataset containing:
+### Average Property Price by City
 
-| Dataset Information | Value | 
+![Average Property Price by City](screenshots/analytics/analytics_dashboard_average_property_price_by_city.png)
 
-| Total Property Records | 250,000 |
+### Property Price Distribution
 
-| Number of Features | 23 |
+![Property Price Distribution Dashboard](screenshots/analytics/analytics_dashboard_property_price_distribution.png)
 
-| Cities | 42 |
+### Property Type Distribution
 
-| States | 20 |
+![Property Type Distribution](screenshots/analytics/analytics_dashboard_property_type_distribution.png)
 
-#### Important Dataset Features
+### Dataset Preview
 
-- BHK – Number of bedrooms, halls, and kitchens.
+![Dataset Preview](screenshots/analytics/analytics_dashboard_dataset_preview.png)
 
-- Size_in_SqFt – Property size in square feet.
-
-- Price_in_Lakhs – Property price in lakhs.
-
-- Price_per_SqFt – Price per square foot.
-
-- Year_Built – Year of construction.
-
-- Age_of_Property – Property age.
-
-- Floor_No – Property floor number.
-
-- Total_Floors – Total floors in the building.
-
-- Property_Type – Type of residential property.
-
-- Furnished_Status – Furnishing category.
-
-- State – Property state.
-
-- City – Property city.
-
-- Locality – Property locality.
-
-The dataset also contains information about nearby schools, hospitals, amenities, parking, security, and property availability.
+---
 
 ## 5. Project Workflow
+```text
+Internship-provided property data (private)
+                 |
+                 v
+          Data inspection
+                 |
+                 v
+           Quality checks
+                 |
+                 v
+            Preprocessing
+                 |
+                 v
+      Exploratory Data Analysis
+                 |
+                 v
+         Feature engineering
+                 |
+                 v
+        Train/test split (80/20)
+                 |
+                 v
+       Random Forest classifier
+                 |
+                 v
+          Model evaluation
+                 |
+                 v
+       MLflow experiment tracking
+                 |
+                 v
+         Saved model (private)
+                 |
+                 v
+        Streamlit application
+```
 
-### Step 1: Data Inspection
+---
+## 6. Exploratory Data Analysis (EDA)
 
-- Loaded and inspected the original dataset.
+Exploratory Data Analysis was performed to understand property price distributions, property sizes, property categories, and relationships between numerical features.
 
-- Examined dataset dimensions and data types.
+### Property Price Distribution
 
-- Identified numerical and categorical features.
+![Property Price Distribution](reports/figures/price_distribution.png)
 
-- Checked missing values and duplicate records.
+### Property Size Distribution
 
-- Investigated invalid floor information.
+![Property Size Distribution](reports/figures/size_distribution.png)
 
-### Step 2: Data Preprocessing
+### Average Price by Property Type
 
-- Removed duplicate records.
+![Average Price by Property Type](reports/figures/property_type.png)
 
-- Cleaned categorical values.
+### Property Size vs Price
 
-- Identified and handled invalid floor records.
+![Property Size vs Price](reports/figures/size_vs_price.png)
 
-- Applied median imputation to numerical features.
+### Feature Correlation Heatmap
 
-- Created a corrected price-per-square-foot representation.
+![Feature Correlation Heatmap](reports/figures/correlation_heatmap.png)
 
-### Step 3: Exploratory Data Analysis (EDA)
+---
 
-Performed exploratory analysis to understand property market patterns.
+## 7. Machine Learning Approach
 
-#### Visualizations include:
+### Target:  Relative Affordability
 
-- Property price distribution.
+The binary target is derived by comparing a property's price per square foot with the median price per square foot in its city.
 
-- Property size distribution.
+- **1 - Relatively Affordable:** Price per square foot is at or below the city median.
 
-- Relationship between property size and price.
+- **0 - Relatively Expensive:** Price per square foot is above the city median.
 
-- Property type distribution.
+> This target is a relative-affordability proxy. It does not directly measure rental yield, capital gains, investment risk, liquidity, or realized returns.
 
-- Correlation heatmap.
+### Random Forest Configuration
 
-### Step 4: Feature Engineering
+| Parameter | Value |
+|---|---|
+| Algorithm  |  Random Forest Classifier |
+| Number of estimators  |  100 |
+| Maximum depth  | 15 |
+| Minimum samples split | 10 |
+| Random state | 42 |
+| Class weight | Balanced |
+| Training/test split | 80% / 20% |
 
-Created additional features to support analysis and modelling.
+> The training pipeline uses numerical imputation, categorical encoding, and a ColumnTransformer.
 
-#### Good_Investment
+---
 
-A binary classification target:
+## 8. Model Evaluation
 
-1 – Property price per square foot is at or below the median price per square foot for its city.
+The following results are from the private training experiment on 250,000 internship-provided records.
 
-0 – Property price per square foot is above its city's median.
+**Training records: 200,000**
 
-This target represents relative affordability, not independently verified investment profitability.
+**Testing records: 50,000**
 
-#### Future_Price_5Y_Lakhs
+These results are from the private training experiment, not the generated public demo data.
 
-An illustrative future property value calculated using an assumed annual appreciation rate of 8% over five years.
+### Evaluation Metrics
 
-### Step 5: Machine Learning Model
+| Metric | Result |
+|---|---:|
+| Accuracy | 84.07% |
+| Precision | 84.48% |
+| Recall | 83.47% |
+| F1-score | 83.97% |
+| ROC-AUC | 95.65% |
 
-Implemented a Random Forest Classifier using Scikit-learn.
+### Confusion Matrix
 
-Model Configuration:
+| Actual Class | Predicted Negative | Predicted Positive |
+|---|---:|---:|
+| Actual Negative | 21,164 | 3,833 |
+| Actual Positive | 4,133 | 20,870 |
 
-| Parameter             |   Value | 
- 
+**Evaluation Note:** These metrics evaluate the constructed relative-affordability label. They should not be interpreted as evidence of investment returns or future-price prediction accuracy.
 
-| Algorithm             | Random Forest Classifier | 
+---
 
-| Number of Estimators  | 100 |
+## 9.MLflow Experiment Tracking
 
-| Maximum Depth         | 15 | 
+MLflow was used in the private training environment to track the Random Forest classification experiment.
 
-| Minimum Samples Split | 10 |
+**Experiment Name:** Real_Estate_Investment_Advisor
 
-| Random State          | 42 |
+### MLflow recorded:
 
-| Class Weight          | Balanced |
+- Model parameters
+- Evaluation metrics
+- Training and testing record counts
+- Trained model artifact
+- Experiment description
 
-| Training Data         | 80% |
+### Experiment Configuration
 
-| Testing Data          | 20% |
+| Parameter | Value |
+|---|---|
+| Algorithm | Random Forest Classifier |
+| Training records | 200,000 |
+| Testing records | 50,000 |
+| Number of estimators | 100 |
+| Maximum depth | 15 |
+| Minimum samples split | 10 |
+| Class weight | Balanced |
+| Random state | 42 |
 
-The preprocessing pipeline includes numerical imputation, categorical encoding, and model training.
+> The local `mlruns/` directory and trained model artifact are excluded from this public repository.
 
-### Step 6: Model Evaluation
+> An interviewer can be provided with an appropriately sanitized experiment export or authorized access separately.
 
-The trained classification model was evaluated using standard classification metrics.
+---
 
-| Evaluation Metric | Result | 
+## 10. ML Flow Experiment Screenshots
 
-|  Accuracy         | 84.07% |
+### MLflow Experiment Overview
 
-| Precision         | 84.48% | 
+![MLflow Experiment Overview](screenshots/mlflow/experiments_overview.png)
 
-| Recall            | 83.47% |
+### MLflow Run Metrics
 
-| F1 Score          | 83.97% |
+![MLflow Run Metrics](screenshots/mlflow/run_metrics.png)
 
-| ROC-AUC           | 95.65% |
+### MLflow Run Parameters
 
-These results reflect performance on the constructed relative-affordability target. They should not be interpreted as proof of actual investment profitability.
+![MLflow Run Parameters](screenshots/mlflow/run_parameters.png)
 
-### Step 7: MLflow Experiment Tracking
+---
 
-MLflow was integrated to track and manage machine learning experiments.
+## 11. Public Demo vs. Private Training Environment
 
-#### The experiment records:
+### 11.1 Public Demo Mode
 
-- Model parameters.
+When the private dataset and model files are unavailable, the application:
 
-- Evaluation metrics.
+- Generates **420 illustrative sample property records** across 8 example cities and states.
+- Displays a notice explaining that the records are generated for demonstration.
+- Uses a transparent city-median price-per-square-foot baseline for affordability assessment.
+- Clearly states that no trained Random Forest model was loaded.
+- Keeps the price scenario calculator and analytics dashboard available.
 
-- Training runs.
+> The generated demo records are not actual market observations and are not copied from the internship dataset.
 
-- Trained model artifacts.
 
-#### Experiment Name: Real_Estate_Investment_Advisor
+### 11.2 Private Local Mode
 
-#### Run Name: Random_Forest_Classifier
+In the authorized local environment, the application can load:
 
-#### Saved Model: classification_model.pkl
+**Processed dataset:**
 
-### Step 8: Future Property Price Forecasting
+`data/processed/feature_engineered_data.csv`
 
-The application includes a scenario-based future property price calculator.
+**Trained model:**
 
-#### Users can configure:
+`models/classification_model.pkl`
 
-- Current property price.
+These files are deliberately excluded from GitHub.
 
-- Annual appreciation rate.
+> **Data Privacy:** Do not upload or redistribute internship-provided data or model artifacts without the data owner's permission.
 
-- Forecast duration.
+---
 
-The application calculates an estimated future value using compound annual appreciation.
+## 12. Project Structure
 
-Note: This feature is an assumption-based financial calculation, not an ML regression model or a guaranteed prediction of actual market prices.
-
-## 6. Streamlit Application Features
-
-The interactive application contains four main sections.
-
-#### Home
-
-- Project introduction.
-
-- Dataset overview.
-
-- Key project statistics.
-
-#### Property Investment
-
-- Property information input.
-
-- Property affordability classification.
-
-- Model-based prediction.
-
-#### Price Forecast
-
-- Current property price input.
-
-- Adjustable annual appreciation rate.
-
-- Customizable forecast duration.
-
-- Estimated future property value.
-
-#### Analytics Dashboard
-
-- City-wise property price analysis.
-
-- Property type distribution.
-
-- Property price distribution.
-
-- Dataset preview.
-
-### 📁 7. Project Structure
+The public repository contains the following files and directories:
 
 ```text
 REAL_ESTATE_ADVERTISEMENT_ADVISOR/
-│
-├── data/
-│   ├── raw/
-│   │   └── india_housing_prices.csv
-│   └── processed/
-│       ├── cleaned_data.csv
-│       └── feature_engineered_data.csv
-│
-├── models/
-│   └── classification_model.pkl
-│
-├── notebooks/
-│
-├── reports/
-│   └── figures/
 │
 ├── src/
 │   ├── inspect_data.py
@@ -308,96 +303,131 @@ REAL_ESTATE_ADVERTISEMENT_ADVISOR/
 │   ├── classification.py
 │   └── regression.py
 │
+├── reports/
+│   └── figures/
+│       ├── correlation_heatmap.png
+│       ├── price_distribution.png
+│       ├── property_type.png
+│       ├── size_distribution.png
+│       └── size_vs_price.png
+│
+├── screenshots/
+│   ├── analytics/
+│   │   ├── analytics_dashboard_average_property_price_by_city.png
+│   │   ├── analytics_dashboard_dataset_preview.png
+│   │   ├── analytics_dashboard_property_price_distribution.png
+│   │   └── analytics_dashboard_property_type_distribution.png
+│   │
+│   ├── mlflow/
+│   │   ├── experiments_overview.png
+│   │   ├── run_metrics.png
+│   │   └── run_parameters.png
+│   │
+│   ├── homepage.png
+│   ├── price_forecast.png
+│   ├── property_investment_1.png
+│   └── property_investment_2.png
+│
 ├── app.py
+├── requirements.txt
 ├── README.md
-└── .gitignore```
+└── .gitignore
+```
+## Private Local-Only Directories
 
-## 8. Installation & Execution
+The following directories are intentionally excluded from the public repository:
 
-Follow these steps to run the project locally.
+`data/`
+`models/`
+`mlruns/`
+`.venv/`
 
-#### Prerequisites
+> Private local-only directories such as data/, models/, and mlruns/ are excluded from the public repository.
 
-- Python 3.10 or later
+---
 
-- pip
+## 13. Installation and Usage
 
+### Requirements
+
+Make sure the following tools are installed:
+
+- Python 3.13
 - Git
-
-- Visual Studio Code (recommended)
+- pip
 
 ### Step 1: Clone the Repository
 
-`````git clone YOUR_GITHUB_REPOSITORY_URL`````
+```bash
+git clone https://github.com/rishabhsharma6022002-blip/real-estate-investment-advisor.git
+```
+Navigate to the project directory:
 
-#### Navigate to the project directory:
-
-``````cd REAL_ESTATE_ADVERTISEMENT_ADVISOR``````
+```bash
+cd real-estate-investment-advisor
+```
 
 ### Step 2: Create a Virtual Environment
 
-``````python -m venv .venv``````
+```bash
+python -m venv .venv
+```
 
-### Step 3: Activate the Virtual Environment
+### Step 3: Activate the Environment
 
-For Windows PowerShell:
+**Windows PowerShell:**
 
-```.\.venv\Scripts\Activate.ps1 ```
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
-If PowerShell blocks activation, you can run Python using the environment's executable directly:
-
-````.\.venv\Scripts\python.exe````
+> If PowerShell blocks activation, use the environment's Python executable directly.
 
 ### Step 4: Install Dependencies
 
-````````pip install pandas numpy matplotlib seaborn scikit-learn streamlit joblib mlflow````````
+```bash
+pip install -r requirements.txt
+```
 
-### Step 5: Run the Streamlit Application
+### Step 5: Run the Application
 
-``````streamlit run app.py``````
+```bash
+python -m streamlit run app.py
+```
 
-The application will be available in your browser, usually at:
+Open the local URL printed in the terminal, usually:
 
-http://localhost:8501
+`http://localhost:8501`
 
-## 9. Limitations
+> A fresh clone should start in public demo mode because the private dataset and model files are not included.
+
+---
+
+## 14. Future Improvements
+
+- Validate the approach using independently sourced, authorized market data.
+- Compare additional classification algorithms.
+- Improve validation, feature selection, and model explainability.
+- Add rental-yield and investment-risk analysis when suitable data is available.
+- Add sensitivity analysis for appreciation assumptions.
+- Improve dashboard interactivity.
+
+---
+
+### 15. Limitations and Disclaimer
 
 - The classification target is derived from city-level median price per square foot.
+- Relative affordability is not equivalent to investment profitability.
+- The reported metrics apply to the constructed target and private test set.
+- Public demo records are generated for interface demonstration, not verified market statistics.
+- Future-price values depend entirely on the user's appreciation assumption; this is not a trained regression forecast.
 
-- The classification model estimates relative affordability rather than independently verified investment returns.
+> This project is for educational and demonstration purposes only. It does not constitute financial advice or guarantee investment performance.
 
-- The dataset and its patterns require independent validation before real-world use.
+---
 
-- The future price calculator relies on assumed appreciation rates.
+## 16. Author:
 
-- Actual property prices may vary due to market conditions, location, infrastructure, demand, and economic factors.
+**Rishabh Sharma**
 
-- Forecasts are illustrative and should not be treated as financial advice.
-
-## 10. Future Enhancements
-
-- Integrate real-time property market datasets.
-
-- Improve model validation and feature selection.
-
-- Compare additional machine learning algorithms.
-
-- Incorporate location-specific appreciation trends.
-
-- Add investment risk assessment.
-
-- Develop property comparison functionality.
-
-- Introduce personalized property recommendations.
-
-- Improve the dashboard with additional interactive visualizations.
-
-## 11. Author
-
-Real Estate Investment Advisor
-
-Machine Learning | Data Analytics | Python | Streamlit
-
-## Disclaimer
-
-This project is developed for educational and machine learning application purposes. Its outputs are estimates based on the available dataset and selected assumptions. They should not be considered guaranteed investment returns or professional financial advice.
+Copyright © 2026 Rishabh Sharma. All rights reserved.

@@ -29,5 +29,14 @@ data/
 models/
 mlruns/
 
-# Generated analysis outputs
-reports/figures/
+# Local backup files - do not publish
+app_backup.py
+app_public_demo.py
+README_backup.md
+
+# Temporary README download
+README_interview_ready.md
+
+# Temporary data audit scripts
+audit_data.py
+inspect_prices.py

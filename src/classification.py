@@ -56,6 +56,12 @@ categorical_features = X.select_dtypes(
     include=["object", "str"]
 ).columns.tolist()
 
+print("\nNumerical Features:")
+print(numerical_features)
+
+print("\nCategorical Features:")
+print(categorical_features)
+
 
 # ==========================================
 # 3. PREPROCESSING

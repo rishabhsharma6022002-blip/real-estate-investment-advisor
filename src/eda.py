@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -6,56 +7,159 @@ import seaborn as sns
 df = pd.read_csv("data/processed/cleaned_data.csv")
 
 # Create output folder
-import os
 os.makedirs("reports/figures", exist_ok=True)
 
-# 1. Property price distribution
+# Consistent visualization style
+sns.set_theme(style="whitegrid", context="notebook")
+
+
+# ==========================================
+# 1. PROPERTY PRICE DISTRIBUTION
+# ==========================================
+
 plt.figure(figsize=(10, 5))
-sns.histplot(df["Price_in_Lakhs"], bins=40, kde=True)
+
+sns.histplot(
+    data=df,
+    x="Price_in_Lakhs",
+    bins=40,
+    kde=True
+)
+
 plt.title("Distribution of Property Prices")
-plt.xlabel("Price (Lakhs)")
-plt.savefig("reports/figures/price_distribution.png")
+plt.xlabel("Property Price (₹ Lakhs)")
+plt.ylabel("Number of Properties")
+plt.tight_layout()
+
+plt.savefig(
+    "reports/figures/price_distribution.png",
+    dpi=300,
+    bbox_inches="tight"
+)
 plt.close()
 
-# 2. Property size distribution
+
+# ==========================================
+# 2. PROPERTY SIZE DISTRIBUTION
+# ==========================================
+
 plt.figure(figsize=(10, 5))
-sns.histplot(df["Size_in_SqFt"], bins=40, kde=True)
+
+sns.histplot(
+    data=df,
+    x="Size_in_SqFt",
+    bins=40,
+    kde=True
+)
+
 plt.title("Distribution of Property Sizes")
-plt.xlabel("Size (SqFt)")
-plt.savefig("reports/figures/size_distribution.png")
+plt.xlabel("Property Size (Sq. Ft.)")
+plt.ylabel("Number of Properties")
+plt.tight_layout()
+
+plt.savefig(
+    "reports/figures/size_distribution.png",
+    dpi=300,
+    bbox_inches="tight"
+)
 plt.close()
 
-# 3. Property size vs price
-plt.figure(figsize=(10, 5))
+
+# ==========================================
+# 3. PROPERTY SIZE VS PRICE
+# ==========================================
+
+plt.figure(figsize=(10, 6))
+
 sns.scatterplot(
     data=df.sample(5000, random_state=42),
     x="Size_in_SqFt",
-    y="Price_in_Lakhs"
+    y="Price_in_Lakhs",
+    alpha=0.35,
+    s=20,
+    edgecolor=None
 )
-plt.title("Property Size vs Price")
-plt.savefig("reports/figures/size_vs_price.png")
+
+plt.title("Property Size vs Property Price")
+plt.xlabel("Property Size (Sq. Ft.)")
+plt.ylabel("Property Price (₹ Lakhs)")
+plt.tight_layout()
+
+plt.savefig(
+    "reports/figures/size_vs_price.png",
+    dpi=300,
+    bbox_inches="tight"
+)
 plt.close()
 
-# 4. Average property price by property type
+
+# ==========================================
+# 4. AVERAGE PRICE BY PROPERTY TYPE
+# ==========================================
+
 plt.figure(figsize=(9, 5))
-sns.barplot(
+
+ax = sns.barplot(
     data=df,
     x="Property_Type",
     y="Price_in_Lakhs",
     errorbar=None
 )
-plt.title("Average Price by Property Type")
-plt.savefig("reports/figures/property_type.png")
+
+for container in ax.containers:
+    ax.bar_label(
+        container,
+        fmt="%.2f",
+        padding=3
+    )
+
+plt.title("Average Property Price by Property Type")
+plt.xlabel("Property Type")
+plt.ylabel("Average Price (₹ Lakhs)")
+plt.tight_layout()
+
+plt.savefig(
+    "reports/figures/property_type.png",
+    dpi=300,
+    bbox_inches="tight"
+)
 plt.close()
 
-# 5. Correlation heatmap
-numeric_df = df.select_dtypes(include="number")
 
-plt.figure(figsize=(12, 8))
-sns.heatmap(numeric_df.corr(), cmap="coolwarm", annot=False)
-plt.title("Feature Correlation Heatmap")
-plt.savefig("reports/figures/correlation_heatmap.png")
+# ==========================================
+# 5. FEATURE CORRELATION HEATMAP
+# ==========================================
+
+numeric_df = df.select_dtypes(
+    include="number"
+).drop(
+    columns=["ID"],
+    errors="ignore"
+)
+
+plt.figure(figsize=(14, 10))
+
+sns.heatmap(
+    numeric_df.corr(),
+    cmap="coolwarm",
+    annot=True,
+    fmt=".2f",
+    linewidths=0.5,
+    center=0,
+    vmin=-1,
+    vmax=1
+)
+
+plt.title("Numerical Feature Correlation Heatmap")
+plt.tight_layout()
+
+plt.savefig(
+    "reports/figures/correlation_heatmap.png",
+    dpi=300,
+    bbox_inches="tight"
+)
 plt.close()
 
-print("EDA completed successfully!")
+
+print("\nEDA completed successfully!")
 print("All graphs saved inside reports/figures/")
